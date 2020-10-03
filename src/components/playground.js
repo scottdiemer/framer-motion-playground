@@ -4,9 +4,16 @@ import { motion } from "framer-motion";
 import "../css/playground.css";
 
 const Playground = () => {
-  const variants = {
-    hidden: { opacity: 0, y: 300, x: -100 },
-    visible: { opacity: 1, y: 0, x: 0 },
+  const list = {
+    hidden: { opacity: 0, transition: { when: "afterChildren" } },
+    visible: {
+      opacity: 1,
+      transition: { when: "beforeChildren", staggerChildren: 0.3 },
+    },
+  };
+
+  const item = {
+    visible: { opacity: 0 },
   };
 
   return (
@@ -14,16 +21,22 @@ const Playground = () => {
       <motion.div
         initial="hidden"
         animate="visible"
-        variants={variants}
+        variants={list}
         transition={{ duration: 1 }}
+        className="div-wrapper"
       >
-        <h1>Testing</h1>
-      </motion.div>
-      <motion.div className="div-wrapper">
-        <div className="margin padding wide red">red</div>
-        <div className="margin padding wide blue">blue</div>
-        <div className="margin padding wide green">green</div>
-        <div className="margin padding wide orange">orange</div>
+        <motion.div variants={item} className="margin padding wide red">
+          red
+        </motion.div>
+        <motion.div variants={item} className="margin padding wide blue">
+          blue
+        </motion.div>
+        <motion.div variants={item} className="margin padding wide green">
+          green
+        </motion.div>
+        <motion.div variants={item} className="margin padding wide orange">
+          orange
+        </motion.div>
       </motion.div>
     </>
   );
